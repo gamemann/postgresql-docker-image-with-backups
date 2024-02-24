@@ -81,7 +81,7 @@ if [[ -n "$BACKUP_B2_DIR" ]]; then
     DIR="/${BACKUP_B2_DIR}"
 fi
 
-env PASSPHRASE="$BACKUP_DUP_PASS" duplicity $DUP_CMD "$FULL_DUMP_PATH" "b2://${BACKUP_B2_ID}:${BACKUP_B2_APP_KEY}@${BACKUP_B2_BUCKET}${DIR}"
+env PASSPHRASE="$BACKUP_DUP_PASS" duplicity $DUP_CMD --allow-source-mismatch "$FULL_DUMP_PATH" "b2://${BACKUP_B2_ID}:${BACKUP_B2_APP_KEY}@${BACKUP_B2_BUCKET}${DIR}"
 
 # Remove local backup.
 log 4 "Removing local backup file '$FULL_DUMP_PATH'..."
