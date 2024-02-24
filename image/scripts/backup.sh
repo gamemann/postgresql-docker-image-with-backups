@@ -58,7 +58,7 @@ if [[ -z "$BACKUP_B2_BUCKET" ]]; then
 fi
 
 # Dump database.
-DUMP_FILE_NAME="${POSTGRES_DB}_${DATE_SIMPLE}.pgsql"
+DUMP_FILE_NAME="${POSTGRES_DB}.pgsql"
 FULL_DUMP_PATH="/tmp/${DUMP_FILE_NAME}"
 
 log 3 "Backing up to file '$FULL_DUMP_PATH'..."
