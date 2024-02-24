@@ -18,7 +18,7 @@ All configuration is done inside of the [`docker-compose.yml`](./docker-compose.
 | POSTGRES_PASSWORD | `testpass` | The PostgreSQL password (inherited from PostgreSQL image). |
 | POSTGRES_DB | `testdb` | The PostgreSQL database name (inherited from PostgreSQL image). |
 | BACKUP_VERBOSE | `1` | The backup script's verbose level. Log messages go up to verbose level `4` currently. |
-| BACKUP_LOG_DIR | `/var/log/backups` | The backup script's log directory inside of the Docker container. Leave blank to disable logging. |
+| BACKUP_LOG_DIR | `/var/log/backups` | The backup script's log directory inside of the Docker container. Leave blank to disable logging to files. |
 | BACKUP_B2_APP_KEY | `null` | The Backblaze B2 application master key. |
 | BACKUP_B2_ID | `null` | The Backblaze B2 application master ID. |
 | BACKUP_B2_BUCKET | `mybucket` | The Backblaze B2 bucket name to store backups in. |
