@@ -21,7 +21,7 @@ The application ([`app/`](./app)) uses Docker Compose with the latest backup ima
 
 You may also need to change the owner of the `db-data/` directory to the system user (`999`) via the `chown -R 999 db-data` command since the `postgres` user inside of the Docker container has a GUID of `999` by default (at least in my cases while testing).
 
-With that said, make sure to copy or rename [`app/.env.example](./app/.env.example) to `app/.env`!
+With that said, make sure to copy or rename [`app/.env.example`](./app/.env.example) to `app/.env`!
 
 Feel free to implement the application into your existing Docker Compose projects!
 
