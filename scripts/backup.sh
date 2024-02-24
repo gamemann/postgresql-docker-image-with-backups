@@ -26,6 +26,37 @@ log 3 "Using B2 bucket: $BACKUP_B2_BUCKET..."
 log 3 "Using PSQL User: $POSTGRES_USER..."
 log 3 "Using PSQL DB: $POSTGRES_DB..."
 
+# Make sure our environmental variables are set.
+if [[ -z "$POSTGRES_USER" ]]; then
+    log 0 "FATAL: PostgreSQL user not set!"
+
+    exit 1
+fi
+
+if [[ -z "$POSTGRES_DB" ]]; then
+    log 0 "FATAL: PostgreSQL database not set!"
+
+    exit 1
+fi
+
+if [[ -z "$BACKUP_B2_ID" ]]; then
+    log 0 "FATAL: B2 ID not set!"
+
+    exit 1
+fi
+
+if [[ -z "$BACKUP_B2_APP_KEY" ]]; then
+    log 0 "FATAL: B2 App Key not set!"
+
+    exit 1
+fi
+
+if [[ -z "$BACKUP_B2_BUCKET" ]]; then
+    log 0 "FATAL: B2 bucket not set!"
+
+    exit 1
+fi
+
 # Dump database.
 DUMP_FILE_NAME="${POSTGRES_DB}_${DATE_SIMPLE}.pgsql"
 FULL_DUMP_PATH="/tmp/${DUMP_FILE_NAME}"
