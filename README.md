@@ -39,5 +39,18 @@ duplicity "$FULL_DUMP_PATH" "b2://${BACKUP_B2_ID}:${BACKUP_B2_APP_KEY}@${BACKUP_
 
 If you need any flags, etc. added to this command, you may edit the [`scripts/backup.sh`](./scripts/backup.sh) Bash script and rebuild the Docker container.
 
+## Executing Backup Script Manually
+You can start a shell inside of the Docker container using the following command.
+
+```bash
+docker exec -it <container ID or name> bash
+```
+
+You can retrieve the container ID or name via the `docker container ls` command after starting the container.
+
+Afterwards, you can execute the backup Bash script manually at `/opt/backup.sh` to test if things are working properly without needing to adjust/wait for the cron job.
+
+Additionally, the environmental variables inside of the [`docker-compose.yml`](./docker-compose.yml) file should be set inside of this shell. You can confirm this by executing the `printenv` command.
+
 ## Credits
 * [Christian Deacon](https://github.com/gamemann)
