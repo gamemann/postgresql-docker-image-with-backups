@@ -67,7 +67,21 @@ pg_dump -U $POSTGRES_USER -d $POSTGRES_DB > $FULL_DUMP_PATH
 
 log 3 "Uploading to Backblaze..."
 
-duplicity "$FULL_DUMP_PATH" "b2://${BACKUP_B2_ID}:${BACKUP_B2_APP_KEY}@${BACKUP_B2_BUCKET}"
+DUP_CMD=""
+
+if [[ "$BACKUP_DUP_FORCE_INC" -ge 1 ]]; then
+    DUP_CMD="inc"
+elif [[ "BACKUP_DUP_FORCE_FULL" -ge 1 ]]; then
+    DUP_CMD="full"
+fi
+
+DIR=
+
+if [[ -n "$BACKUP_B2_DIR" ]]; then
+    DIR="/${BACKUP_B2_DIR}"
+fi
+
+env PASSPHRASE="$BACKUP_DUP_PASS" duplicity $DUP_CMD "$FULL_DUMP_PATH" "b2://${BACKUP_B2_ID}:${BACKUP_B2_APP_KEY}@${BACKUP_B2_BUCKET}${DIR}"
 
 # Remove local backup.
 log 4 "Removing local backup file '$FULL_DUMP_PATH'..."

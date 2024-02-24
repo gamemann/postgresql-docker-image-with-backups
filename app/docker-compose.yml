@@ -7,12 +7,5 @@ services:
       - ./conf/postgresql.conf:/etc/postgresql.conf
       - ./db-data:/var/lib/postgresql/data
       - ./logs:/var/log/backups/
-    environment:
-      - POSTGRES_USER=testuser
-      - POSTGRES_PASSWORD=testpass
-      - POSTGRES_DB=testdb
-      - BACKUP_VERBOSE=1
-      - BACKUP_LOG_DIR=/var/log/backups/
-      - BACKUP_B2_APP_KEY=
-      - BACKUP_B2_ID=
-      - BACKUP_B2_BUCKET=mybucket
+    env_file:
+      - ./.env
