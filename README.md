@@ -12,9 +12,12 @@ The image is stored in the [`image/`](./image) directory. You can use the `build
 
 | Flag | Default | Description |
 | ---- | ------- | ----------- |
+| `--name=<NAME>` | `postgresbackups` | The name of the Docker image. |
+| `--tag=<TAG>` | `latest` | The tag to set the Docker image to. |
 | `--path=<PATH>` | `image/` | Builds the Docker image inside of `<PATH>`. |
-| `--tag=<TAG>` | `latest` | Builds Docker image based off of the PostgreSQL image with the tag `<TAG>`. |
+| `--ptag=<TAG>` | `latest` | Builds Docker image based off of the PostgreSQL image with the tag `<TAG>`. |
 | `--no-cache` | - | Builds the Docker image with no cache. |
+| `--help` | - | Prints the help menu. |
 
 You may also build the image manually using the following command as root (or using `sudo`).
 
