@@ -8,7 +8,13 @@ The image itself is stored inside of the [`image/`](./image) directory. There is
 
 ## Installation
 ### Image
-The image is stored in the [`image/`](./image) directory. You can use the `build_image.sh` Bash script to build the Docker image with the name/tag `postgresbackups:latest`. You may pass `no-cache` as an argument to this script to build without using the cache.
+The image is stored in the [`image/`](./image) directory. You can use the `build_image.sh` Bash script to build the Docker image with the name/tag `postgresbackups:latest`. The following arguments are supported.
+
+| Flag | Default | Description |
+| ---- | ------- | ----------- |
+| `--path=<PATH>` | `image/` | Builds the Docker image inside of `<PATH>`. |
+| `--tag=<TAG>` | `latest` | Builds Docker image based off of the PostgreSQL image with the tag `<TAG>`. |
+| `--no-cache` | - | Builds the Docker image with no cache. |
 
 You may also build the image manually using the following command as root (or using `sudo`).
 

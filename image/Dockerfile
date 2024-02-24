@@ -1,4 +1,6 @@
-FROM postgres
+ARG TAG=latest
+
+FROM postgres:$TAG
 
 RUN apt update
 
