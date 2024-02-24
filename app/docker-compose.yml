@@ -2,11 +2,8 @@ version: "3.9"
 
 services:
   db:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: postgresbackups:latest
     volumes:
-      - ./conf/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
       - ./conf/postgresql.conf:/etc/postgresql.conf
       - ./db-data:/var/lib/postgresql/data
       - ./logs:/var/log/backups/

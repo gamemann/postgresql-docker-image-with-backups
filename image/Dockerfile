@@ -32,4 +32,10 @@ RUN crontab /etc/cron.d/backup
 # Copy backup script.
 COPY --chmod=0700 ./scripts/backup.sh /opt
 
+# Copy Supervisor config.
+COPY --chmod=644 ./conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Create backup logs directory.
+RUN mkdir -p /var/log/backups
+
 CMD ["/usr/bin/supervisord"]
