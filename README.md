@@ -1,6 +1,6 @@
 **Work in progress!**
 
-This is a custom Docker image based off of the PostgreSQL Docker image [here](https://github.com/docker-library/postgres). This custom image uses [Supervisor](http://supervisord.org/) to start both Cron and the PostgreSQL server.
+This is a custom Docker image based off of the PostgreSQL Docker image [here](https://github.com/docker-library/postgres). This image uses [Supervisor](http://supervisord.org/) to start both Cron and the PostgreSQL server.
 
 Additionally, a cron job is installed inside of the Docker container ([`conf/cron.conf`](./conf/cron.conf)) that executes a backup script written in Bash ([`scripts/backup.sh`](./scripts/backup.sh)). The backup script dumps the database `$POSTGRES_DB` with the user `$POSTGRES_USER` to `/tmp/dbname_YY-MM-DD.pgsql`. Afterwards, it uploads the database dump to a [Backblaze B2](https://www.backblaze.com/cloud-storage) bucket using [Duplicity](https://duplicity.us/) and deletes the local database dump.
 
