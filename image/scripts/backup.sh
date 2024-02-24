@@ -23,6 +23,7 @@ log 2 "Starting backup on '$DATE_MORE'..."
 log 3 "Using B2 key: $BACKUP_B2_APP_KEY..."
 log 3 "Using B2 ID: $BACKUP_B2_ID..."
 log 3 "Using B2 bucket: $BACKUP_B2_BUCKET..."
+log 3 "Using B2 bucket directory: $BACKUP_B2_DIR..."
 log 3 "Using PSQL User: $POSTGRES_USER..."
 log 3 "Using PSQL DB: $POSTGRES_DB..."
 
