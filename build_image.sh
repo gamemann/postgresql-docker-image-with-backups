@@ -10,7 +10,7 @@ while [[ $# -gt 0 ]]; do
     case $key in
         --no-cache)
             FLAGS+="--no-cache "
-            shift # past argument
+            shift
             ;;
         --tag=*)
             TAG="${key#*=}"
