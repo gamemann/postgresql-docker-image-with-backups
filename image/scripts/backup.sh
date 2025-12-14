@@ -72,7 +72,7 @@ DUP_CMD=""
 
 if [[ "$BACKUP_DUP_FORCE_INC" -ge 1 ]]; then
     DUP_CMD="inc"
-elif [[ "BACKUP_DUP_FORCE_FULL" -ge 1 ]]; then
+elif [[ "$BACKUP_DUP_FORCE_FULL" -ge 1 ]]; then
     DUP_CMD="full"
 fi
 
@@ -82,10 +82,42 @@ if [[ -n "$BACKUP_B2_DIR" ]]; then
     DIR="/${BACKUP_B2_DIR}"
 fi
 
-env PASSPHRASE="$BACKUP_DUP_PASS" duplicity $DUP_CMD --allow-source-mismatch "$FULL_DUMP_PATH" "b2://${BACKUP_B2_ID}:${BACKUP_B2_APP_KEY}@${BACKUP_B2_BUCKET}${DIR}"
+B2_URL="b2://${BACKUP_B2_ID}:${BACKUP_B2_APP_KEY}@${BACKUP_B2_BUCKET}${DIR}"
+
+env PASSPHRASE="$BACKUP_DUP_PASS" duplicity $DUP_CMD --allow-source-mismatch "$FULL_DUMP_PATH" "$B2_URL"
 
 # Remove local backup.
 log 4 "Removing local backup file '$FULL_DUMP_PATH'..."
 rm -f "$FULL_DUMP_PATH"
+
+# Cleanup old backups
+log 3 "Cleaning up old backups..."
+
+BACKUP_DUP_RETENTION_DAYS=${BACKUP_DUP_RETENTION_DAYS:-30}
+BACKUP_DUP_KEEP_FULL_CHAINS=${BACKUP_DUP_KEEP_FULL_CHAINS:-0}
+
+# Keep only x full backup chains if enabled.
+if [[ "$BACKUP_DUP_KEEP_FULL_CHAINS" -gt 0 ]]; then
+    
+    log 3 "Keeping last $BACKUP_DUP_KEEP_FULL_CHAINS full backup chains..."
+
+    env PASSPHRASE="$BACKUP_DUP_PASS" duplicity remove-all-inc-of-but-n-full "$BACKUP_DUP_KEEP_FULL_CHAINS" --force "$B2_URL"
+else
+    # Remove backups older than x days.
+    log 3 "Removing backups older than $BACKUP_DUP_RETENTION_DAYS days..."
+
+    env PASSPHRASE="$BACKUP_DUP_PASS" duplicity remove-older-than "${BACKUP_DUP_RETENTION_DAYS}D" --force "$B2_URL"
+fi
+
+# Clean up unused files.
+log 3 "Cleaning up unused/orphaned backup files..."
+env PASSPHRASE="$BACKUP_DUP_PASS" duplicity cleanup --force "$B2_URL"
+
+# Show collection status if needed.
+if [[ "$BACKUP_VERBOSE" -ge 3 ]]; then
+    log 3 "Current backup collection status:"
+
+    env PASSPHRASE="$BACKUP_DUP_PASS" duplicity collection-status "$B2_URL"
+fi
 
 log 2 "Finished..."
